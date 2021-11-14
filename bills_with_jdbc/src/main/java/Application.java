@@ -43,7 +43,7 @@ public class Application {
             System.out.println(report.getMerchInfo(from, to));
             System.out.println(report.chooseFirstTenOrganizations(merch2));
             System.out.println(report.getMerchAvgPrice(merch2, from, to));
-            System.out.println(report.getMerchOfOrganizators(from, to));;
+            System.out.println(report.getMerchOfOrganizators(from, to));
 
             LinkedHashMap<Merch, Integer> conds = new LinkedHashMap<>();
             conds.put(merch1, 2);

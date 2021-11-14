@@ -1,6 +1,5 @@
 package db_objects.dao;
 
-import lombok.Data;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 

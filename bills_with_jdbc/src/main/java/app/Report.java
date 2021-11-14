@@ -19,12 +19,11 @@ public class Report {
     private final Connection connection;
     private final DAOItems dao;
 
-    // todo
-    public static final String firstQuery = SQLReader.readSQL(Path.of("sql/first.sql"));
-    public static final String secondQuery = SQLReader.readSQL(Path.of("sql/second.sql"));
-    public static final String thirdQuery = SQLReader.readSQL(Path.of("sql/third.sql"));
-    public static final String fourthQuery = SQLReader.readSQL(Path.of("sql/fourth.sql"));
-    public static final String fifthQuery = SQLReader.readSQL(Path.of("sql/fifth.sql"));
+    public static final String FIRST_QUERY = SQLReader.readSQL(Path.of("sql/first.sql"));
+    public static final String SECOND_QUERY = SQLReader.readSQL(Path.of("sql/second.sql"));
+    public static final String THIRD_QUERY = SQLReader.readSQL(Path.of("sql/third.sql"));
+    public static final String FOURTH_QUERY = SQLReader.readSQL(Path.of("sql/fourth.sql"));
+    public static final String FIFTH_QUIERY = SQLReader.readSQL(Path.of("sql/fifth.sql"));
 
     public Report(@NotNull Connection connection, DAOItems dao) {
         this.connection = connection;
@@ -34,7 +33,7 @@ public class Report {
     public @NotNull List<Organization> chooseFirstTenOrganizations(@NotNull Merch merch) {
         // Выбрать первые 10 поставщиков по количеству поставленного товара
         List<Organization> organizationsTop10 = new ArrayList<>();
-        try (var statement = connection.prepareStatement(firstQuery)) {
+        try (var statement = connection.prepareStatement(FIRST_QUERY)) {
             statement.setInt(1, merch.getId());
             try (var resultSet = statement.executeQuery()) {
                 Organization organization;
@@ -55,11 +54,9 @@ public class Report {
         // (товар и его количество должны допускать множественное указание).
         List<Organization> organizations = new ArrayList<>();
         Integer[] merchIds = cond.keySet().stream().map(Merch::getId).toArray(Integer[]::new);
-        Integer[] merchNumber = cond.values().toArray(Integer[]::new);
 
-        try(var statement = connection.prepareStatement(secondQuery)) {
+        try(var statement = connection.prepareStatement(SECOND_QUERY)) {
             Array ids = connection.createArrayOf("INTEGER", merchIds);
-            Array quiantities = connection.createArrayOf("INTEGER", merchNumber);
             statement.setArray(1, ids);
             statement.setArray(2, ids);
             statement.setArray(3, ids);
@@ -80,7 +77,7 @@ public class Report {
         // За каждый день для каждого товара рассчитать количество и сумму
         // полученного товара в указанном периоде
         List<GetMerchInfoResponse> responseList = new ArrayList<>();
-        try (var statement = connection.prepareStatement(thirdQuery)) {
+        try (var statement = connection.prepareStatement(THIRD_QUERY)) {
             statement.setString(1, from.toString());
             statement.setString(2, to.toString());
             try (var resultSet = statement.executeQuery()) {
@@ -104,7 +101,7 @@ public class Report {
 
     public double getMerchAvgPrice(Merch merch, LocalDate from, LocalDate to) {
         // Рассчитать среднюю цену полученного товара за период
-        try (var statement = connection.prepareStatement(fourthQuery)) {
+        try (var statement = connection.prepareStatement(FOURTH_QUERY)) {
             statement.setString(1, from.toString());
             statement.setString(2, to.toString());
             statement.setInt(3, merch.getId());
@@ -123,7 +120,7 @@ public class Report {
         // Вывести список товаров, поставленных организациями за период.
         // Если организация товары не поставляла, то она все равно должна быть отражена в списке.
         List<GetMerchOfOrgsResponse> responses = new ArrayList<>();
-        try (var statement = connection.prepareStatement(fifthQuery)){
+        try (var statement = connection.prepareStatement(FIFTH_QUIERY)){
             statement.setString(1, from.toString());
             statement.setString(2, to.toString());
             try (var resultState = statement.executeQuery()){

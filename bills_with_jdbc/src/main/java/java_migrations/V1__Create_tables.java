@@ -1,25 +1,19 @@
 package java_migrations;
 
-import app.JDBCCredentials;
-import db_objects.dao.DAOItems;
-import db_objects.entity.Organization;
 import org.flywaydb.core.api.migration.BaseJavaMigration;
 import org.flywaydb.core.api.migration.Context;
 
 import java.nio.file.Path;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import app.SQLReader;
 
 public class V1__Create_tables extends BaseJavaMigration {
-    public static final JDBCCredentials CRED = JDBCCredentials.DEFAULT;
     private final String sql = SQLReader.readSQL(Path.of("sql/table_creation.sql"));
 
     @Override
-    public void migrate(Context context) throws Exception {
+    public void migrate(Context context) {
         try (Statement statement = context
                 .getConnection()
                 .createStatement()) {
