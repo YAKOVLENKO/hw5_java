@@ -78,7 +78,7 @@ public abstract class BaseDAO<T extends Entity> implements DAO<T>{
             if (statement.executeUpdate() == 0) {
                 throw new IllegalStateException("Something went wrong while inserting " +
                         typeParameterClass.getSimpleName() +
-                         ". Wrong record: " + entity); // todo
+                         ". Wrong record: " + entity);
             }
         }
         catch (SQLException e) {
@@ -96,7 +96,7 @@ public abstract class BaseDAO<T extends Entity> implements DAO<T>{
             if (statement.executeUpdate() == 0) {
                 throw new IllegalStateException("Something went wrong while updating " +
                         typeParameterClass.getSimpleName() +
-                        ". Wrong record: " + entity); // todo
+                        ". Wrong record: " + entity);
             }
         }
         catch (SQLException e) {
