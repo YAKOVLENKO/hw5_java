@@ -81,16 +81,8 @@ public class Report {
             statement.setString(1, from.toString());
             statement.setString(2, to.toString());
             try (var resultSet = statement.executeQuery()) {
-                GetMerchInfoResponse response;
-                Merch merch;
                 while (resultSet.next()){
-                    int merchId = resultSet.getInt("id");
-                    merch = dao.getMerchDAO().select(merchId);
-                    response = new GetMerchInfoResponse(resultSet.getDate("day"),
-                            merch,
-                            resultSet.getInt("total_quantity"),
-                            resultSet.getFloat("total_price"));
-                    responseList.add(response);
+                    responseList.add(new GetMerchInfoResponse(resultSet, dao));
                 }
             }
         } catch (SQLException e) {
@@ -123,16 +115,9 @@ public class Report {
         try (var statement = connection.prepareStatement(FIFTH_QUIERY)){
             statement.setString(1, from.toString());
             statement.setString(2, to.toString());
-            try (var resultState = statement.executeQuery()){
-                while (resultState.next()) {
-                    int orgId = resultState.getInt("id");
-                    int merchId = resultState.getInt("merch_id");
-                    Merch merch = null;
-                    if (merchId > 0) {
-                        merch = dao.getMerchDAO().select(merchId);
-                    }
-                    Organization org = dao.getOrganizationDAO().select(orgId);
-                    responses.add(new GetMerchOfOrgsResponse(org, merch));
+            try (var resultSet = statement.executeQuery()){
+                while (resultSet.next()) {
+                    responses.add(new GetMerchOfOrgsResponse(resultSet, dao));
                 }
             }
         } catch (SQLException e) {

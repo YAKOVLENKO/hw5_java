@@ -31,6 +31,8 @@ public class Application {
 
             DAOItems dao = new DAOItems(connection);
             fillScheme(dao);
+            Bill bill = new Bill(10, "1234432", LocalDate.of(2004, 10, 20), 1);
+            dao.getBillDAO().insert(bill);
 
             Report report = new Report(connection, dao);
             LocalDate from = LocalDate.of(2004, 10, 17);

@@ -12,8 +12,6 @@ public final class JDBCCredentials {
             "newPassword"
     );
 
-    private final @NotNull String prefix = "jdbc:postgresql";
-
     private final String host;
     private final String port;
     private final String dbName;
@@ -35,6 +33,7 @@ public final class JDBCCredentials {
         this.passw = passw;
     }
     public @NotNull String url() {
+        String prefix = "jdbc:postgresql";
         return prefix + "://" + host + ":" + port + "/" + dbName;
     }
 }

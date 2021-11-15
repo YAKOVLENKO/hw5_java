@@ -1,5 +1,4 @@
 package db_objects.dao;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Data
 @AllArgsConstructor
-public class Organization {
+public class Organization implements Entity {
     private int id;
     @NotNull private String name;
     @NotNull private String inn;

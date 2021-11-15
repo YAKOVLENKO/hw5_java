@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class BillItem {
+public class BillItem implements Entity {
     private int id;
     private float price;
     private int billId;

@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
-public class Bill {
+public class Bill implements Entity {
     private int id;
     @NotNull private String number;
     @NotNull private LocalDate date;
